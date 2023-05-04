@@ -1,18 +1,15 @@
 import { NextResponse } from "next/server"
-import { v4 as uuidv4 } from "uuid"
 
-import { OutlineItemI } from "@/types/content"
-import openai from "@/lib/openai"
+import { OpenAIStream } from "@/lib/openai"
+
+export const runtime = "edge"
 
 export async function POST(req: Request): Promise<Response> {
   const { request } = await req.json()
 
-  // Create OpenAI Client
-  const openaiClient = openai(process.env.OPENAI_API_KEY as string)
-
   try {
-    // Get Conversation Title
-    const response = await openaiClient.createChatCompletion({
+    // Get Outline
+    const stream = await OpenAIStream({
       model: "gpt-3.5-turbo",
       messages: [
         {
@@ -147,46 +144,10 @@ export async function POST(req: Request): Promise<Response> {
       ],
       max_tokens: 1000,
       temperature: 0.55,
+      stream: true,
     })
 
-    const outline = response?.data?.choices[0].message?.content
-
-    // If no title found, return 400
-    if (!outline) {
-      return NextResponse.json(
-        { message: "No response from OpenAI" },
-        { status: 401 }
-      )
-    }
-
-    const parsedResponse = JSON.parse(outline)
-
-    if (parsedResponse.message) {
-      console.log(parsedResponse.message)
-      return NextResponse.json(
-        { message: parsedResponse.message },
-        { status: 401 }
-      )
-    }
-
-    const idGeneratedResponse = {
-      ...parsedResponse,
-      outline: parsedResponse.outline.map((outlineItem: OutlineItemI) => {
-        return {
-          ...outlineItem,
-          id: uuidv4(),
-          subheadings: outlineItem.subheadings.map((subheading) => {
-            return {
-              ...subheading,
-              id: uuidv4(),
-            }
-          }),
-        }
-      }),
-    }
-
-    // Finally return title
-    return NextResponse.json(idGeneratedResponse)
+    return new Response(stream)
   } catch (error: any) {
     console.log(error)
     return NextResponse.json({ message: error.message }, { status: 500 })

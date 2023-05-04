@@ -1,16 +1,15 @@
 import { NextResponse } from "next/server"
 
-import openai from "@/lib/openai"
+import { OpenAIStream } from "@/lib/openai"
+
+export const runtime = "edge"
 
 export async function POST(req: Request): Promise<Response> {
   const { request } = await req.json()
-
-  // Create OpenAI Client
-  const openaiClient = openai(process.env.OPENAI_API_KEY as string)
-
   try {
-    // Generate Post with OpenAI
-    const response = await openaiClient.createChatCompletion({
+    // Generate Post
+    console.log("request", request)
+    const stream = await OpenAIStream({
       model: "gpt-3.5-turbo",
       messages: [
         {
@@ -27,22 +26,11 @@ export async function POST(req: Request): Promise<Response> {
       ],
       max_tokens: 3300,
       temperature: 0.68,
+      stream: true,
     })
-
-    const post = response?.data?.choices[0].message?.content
-
-    // If no post found, return 400
-    if (!post) {
-      return NextResponse.json(
-        { message: "No response from OpenAI" },
-        { status: 400 }
-      )
-    }
-
-    // Finally return post
-    return NextResponse.json(post)
+    return new Response(stream)
   } catch (error: any) {
-    console.log(error.response)
+    console.log(error)
     return NextResponse.json({ message: error.message }, { status: 500 })
   }
 }
