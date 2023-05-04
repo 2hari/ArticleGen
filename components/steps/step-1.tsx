@@ -55,8 +55,8 @@ const Step1 = () => {
             onChange={(e) => {
               setInputValue(e.target.value)
             }}
-            className="w-full"
-            placeholder="An Article on Apple M1 chips"
+            className="w-full text-base"
+            placeholder="An Article on Apple M1 chips ..."
           />
           <button type="submit" className="hidden"></button>
         </form>
