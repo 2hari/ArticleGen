@@ -1,12 +1,12 @@
 # 📃 ArticleGen
 
-EzMailr is an article generator powered by OpenAI. Give it few sentences. It will generate an outline for the input. User can then modife the outline as per their requirement and
+ArcticlGen is an article generator powered by OpenAI. Give it few sentences and itt will generate an article outline for the input. User can then modify the outline as per their requirement and let AI generate the article.
 
 ## 📺 Demo Video
+https://github.com/2hari/ArticleGen/assets/73457568/a7ecf85b-65fd-4b04-be75-50ab069ba202
+
 
 ## 🔨 Built With
-
-This project's tech stack has been built around the T3 Stack, as well as other libraries and tools for implementing app specific features.
 
 - Next.js (React)
 - Typescript
@@ -14,4 +14,4 @@ This project's tech stack has been built around the T3 Stack, as well as other l
 - Shadcn/ui
 - Jotai
 - Framer Motion
-- vercel (deployment & cron jobs)
+- vercel
