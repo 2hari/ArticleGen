@@ -77,7 +77,7 @@ const Step2 = () => {
             <h1 className="px-3 py-2 mb-4 text-sm font-bold border rounded-md dark:bg-white/5 max-w-fit dark:border-white/10">
               Outline
             </h1>
-            <input
+            <textarea
               value={outline.title}
               onChange={(e) => {
                 setOutline((prev) => ({ ...prev, title: e.target.value }))
