@@ -19,6 +19,7 @@ export const handlingMessageAtom = atom((get) => {
   return step === 1 ? "Generating Outline..." : "Generating Post..."
 })
 export const inputAtom = atom<string>("")
+export const apiKeyAtom = atom<string>("")
 export const outlineAtom = atom<OutlineI>({
   title: "The Ultimate Guide on How to Write a Blog Post",
   outline: [
@@ -153,6 +154,7 @@ const outlineChunksAtom = atom<string>("")
 export const generateOutlineHandlerAtom = atom(null, async (get, set) => {
   const handling = get(handlingAtom)
   const inputValue = get(inputAtom)
+  const openaiKey = get(apiKeyAtom)
   // Early Returns
   if (handling || inputValue.length < 10) return
   // Set Handling
@@ -171,6 +173,7 @@ export const generateOutlineHandlerAtom = atom(null, async (get, set) => {
       },
       body: JSON.stringify({
         request: inputValue,
+        openaiKey,
       }),
     })
 

@@ -1,7 +1,8 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import {
+  apiKeyAtom,
   generateOutlineHandlerAtom,
   inputAtom,
   stepHandlerAtom,
@@ -27,14 +28,33 @@ const containerVariants = {
 const Step1 = () => {
   const step = useAtomValue(stepHandlerAtom)
   const [inputValue, setInputValue] = useAtom(inputAtom)
+  const [apiKeyValue, setApiKeyValue] = useAtom(apiKeyAtom)
   const generateOutlineHandler = useSetAtom(generateOutlineHandlerAtom)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const openaiToken = localStorage.getItem("openaiToken")
+    setApiKeyValue(openaiToken!)
+  }, [])
 
   const formHandler = async (e: React.FormEvent) => {
     e.preventDefault()
     if (inputValue.length > 10) {
       inputRef.current?.blur()
     }
+
+    const openaiToken = localStorage.getItem("openaiToken")
+    if (!openaiToken) {
+      // Prompt the user for the token and store it in Local Storage
+      const userInput = prompt(
+        "OpenAI api key is recquired. It will be stored in your browser storage. \n\n Please Enter your OpenAI Token:"
+      )
+      if (userInput) {
+        localStorage.setItem("openaiToken", userInput)
+        setApiKeyValue(userInput)
+      }
+    }
+
     await generateOutlineHandler()
   }
   return (

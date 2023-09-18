@@ -14,11 +14,6 @@ const fontSans = FontSans({
   variable: "--font-sans",
 })
 
-const fontMono = FontMono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-})
-
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -32,7 +27,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
   },
 }
 
