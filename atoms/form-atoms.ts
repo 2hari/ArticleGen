@@ -240,6 +240,7 @@ export const generateOutlineHandlerAtom = atom(null, async (get, set) => {
 export const generatePostHandlerAtom = atom(null, async (get, set) => {
   const handling = get(handlingAtom)
   const outline = get(outlineAtom)
+  const openaiKey = get(apiKeyAtom)
   // Early Returns
   if (handling || !outline) return
 
@@ -269,6 +270,7 @@ export const generatePostHandlerAtom = atom(null, async (get, set) => {
             }
           }),
         },
+        openaiKey,
       }),
     })
 
