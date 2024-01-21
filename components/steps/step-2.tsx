@@ -126,16 +126,32 @@ const Step2 = () => {
           </motion.div>
         ) : (
           <motion.div
-            variants={containerVariants}
-            initial="initial"
-            exit="exit"
-            animate={outlineError ? "animate" : "initial"}
-            className="flex items-center gap-2 h-[80vh] justify-center w-full"
+              variants={containerVariants}
+              initial="initial"
+              exit="exit"
+              animate={outlineError ? "animate" : "initial"}
           >
-            <div className="px-3 py-2 text-sm font-bold border rounded-md dark:bg-red-600/10 max-w-fit dark:border-red-600/20">
-              Error
-            </div>
-            {JSON.stringify(outlineError)}
+            <motion.div className="flex flex-col justify-around h-[80vh] w-full">
+              <motion.div>
+                <motion.div
+                  className="flex items-center gap-2 justify-center w-full"
+                >
+                  <div className="px-3 py-2 text-sm font-bold border rounded-md dark:bg-red-600/10 max-w-fit dark:border-red-600/20">
+                    Error
+                  </div>
+                  {JSON.stringify(outlineError)}
+                </motion.div>
+                <motion.div className="mt-16">
+                    <Button
+                      onClick={startFromScratch}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      Start from Scratch
+                    </Button>
+                </motion.div>
+              </motion.div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

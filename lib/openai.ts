@@ -6,6 +6,7 @@ import {
 
 import { OpenAIStreamPayload } from "@/types/openai"
 
+// update 21th Jan 2024, keeping this just for refrence. Use vercel/ai and official openai client instead.
 export async function OpenAIStream(
   payload: OpenAIStreamPayload,
   openaiKey: string

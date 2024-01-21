@@ -13,6 +13,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai"
 import { Input } from "@/components/ui/input"
 
 import { Button } from "../ui/button"
+import clsx from "clsx"
 
 const containerVariants = {
   initial: {
@@ -83,10 +84,10 @@ const Step1 = () => {
               setInputValue(e.target.value)
             }}
             className="w-full text-base"
-            placeholder="An article about Apple M1 chips ..."
+            placeholder="An article about why open source is great ..."
             ref={inputRef}
           />
-          <Button type="submit" className="w-full">
+          <Button type="submit" className={clsx("w-full",!inputValue && "cursor-not-allowed")}>
             Create Outline
           </Button>
         </form>
