@@ -1,4 +1,4 @@
-import { Moon, SunMedium, Trash2, type Icon as LucideIcon } from "lucide-react"
+import { LucideIcon, Moon, SunMedium, Trash2 } from "lucide-react"
 
 export type Icon = LucideIcon
 
