@@ -35,7 +35,9 @@ const Step1 = () => {
 
   useEffect(() => {
     const openaiToken = localStorage.getItem("openaiToken")
-    setApiKeyValue(openaiToken!)
+    if(openaiToken){
+      setApiKeyValue(openaiToken)
+    }
   }, [])
 
   const formHandler = async (e: React.FormEvent) => {
